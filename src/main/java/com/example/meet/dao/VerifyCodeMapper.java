@@ -25,5 +25,6 @@ public interface VerifyCodeMapper {
     @Select("select count(*) from verify_code where tel = #{phone}")
     Integer selectCountByPhone(String phone);
 
-
+    @Select("select * from verify_code where tel = #{phone}")
+    VerifyCode selectVerifyCodeByPhone(String phone);
 }

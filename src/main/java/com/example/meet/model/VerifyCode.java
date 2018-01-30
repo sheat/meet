@@ -6,6 +6,9 @@ import java.util.Date;
 
 @Data
 public class VerifyCode {
+    public static final Integer CODE_USED = 1;
+    public static final Integer CODE_UNUSED = 0;
+
     private Long id;
 
     private String tel;

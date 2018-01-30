@@ -2,16 +2,20 @@ package com.example.meet.controller;
 
 import com.example.meet.dao.VerifyCodeMapper;
 import com.example.meet.model.VerifyCode;
+import com.example.meet.utils.JsonResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.Random;
 
 /**
- * 验证码
+ * 登录及验证码
+ *
+ * @author Alexander Chou
  */
 @RestController
 @RequestMapping("/verification")
@@ -47,4 +51,33 @@ public class VerificationCodeController {
 
         return result;
     }
+
+    /**
+     * 注册或登录
+     */
+    @RequestMapping(value = "/login/{phone}")
+    @ResponseBody
+    public Object getVerificationCode(@PathVariable String phone, String verificationCode) {
+        JsonResponse jsonResponse = new JsonResponse();
+        VerifyCode verifyCode = verifyCodeMapper.selectVerifyCodeByPhone(phone);
+
+        if (null == verifyCode) {
+            jsonResponse.setFailed("请点击发送验证码");
+        } else if (!verificationCode.equals(verifyCode.getVerifyCode())) {
+            jsonResponse.setFailed("验证码错误");
+        } else if (VerifyCode.CODE_USED.equals(verifyCode.getUsed())) {
+            jsonResponse.setFailed("验证码已使用，请重新发送");
+        } else if (new Date().after(verifyCode.getCodeExpries())) {
+            jsonResponse.setFailed("验证码已过期，请重新发送");
+        } else {
+            jsonResponse.setSuccessed(getToken());
+        }
+
+        return jsonResponse;
+    }
+
+    private String getToken() {
+        return "";
+    }
+
 }
