@@ -17,11 +17,8 @@ public class UserController {
 
     @RequestMapping(value = "/")
     @ResponseBody
-    public String getAllUser() {
-        List<User> lily = userMapper.selectAll();
-        if(null !=lily&& lily.size()>0){
-            return lily.get(0).getTelephone();
-        }
-        return "";
+    public Object getAllUser() {
+        User user = userMapper.selectByPhone("18801064494");
+        return user;
     }
 }

@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.meet.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.example.meet.model.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="wechat_union_id" property="wechatUnionId" jdbcType="VARCHAR" />
+    <result column="wechat_app_id" property="wechatAppId" jdbcType="VARCHAR" />
+    <result column="wechat_offical_account_id" property="wechatOfficalAccountId" jdbcType="VARCHAR" />
+    <result column="wechat_mini_programs_id" property="wechatMiniProgramsId" jdbcType="VARCHAR" />
+    <result column="weibo_id" property="weiboId" jdbcType="VARCHAR" />
+    <result column="weibo_token" property="weiboToken" jdbcType="VARCHAR" />
+    <result column="weibo_token_expiration_time" property="weiboTokenExpirationTime" jdbcType="TIMESTAMP" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="birth_date" property="birthDate" jdbcType="DATE" />
+    <result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="real_person_verified" property="realPersonVerified" jdbcType="INTEGER" />
+    <result column="real_person_verified_type" property="realPersonVerifiedType" jdbcType="INTEGER" />
+    <result column=" identity_number" property="identityNumber" jdbcType="VARCHAR" />
+    <result column="rp_verified_passport_url" property="rpVerifiedPassportUrl" jdbcType="VARCHAR" />
+    <result column="verified_img" property="verifiedImg" jdbcType="INTEGER" />
+    <result column="verified_img_url" property="verifiedImgUrl" jdbcType="VARCHAR" />
+    <result column="verified_video" property="verifiedVideo" jdbcType="INTEGER" />
+    <result column="verified_video_url" property="verifiedVideoUrl" jdbcType="VARCHAR" />
+    <result column="vip_level" property="vipLevel" jdbcType="INTEGER" />
+    <result column="follower_count" property="followerCount" jdbcType="INTEGER" />
+    <result column="follow_count" property="followCount" jdbcType="INTEGER" />
+    <result column="hot_count" property="hotCount" jdbcType="INTEGER" />
+    <result column="visitor_count" property="visitorCount" jdbcType="INTEGER" />
+    <result column="receive_order_percent" property="receiveOrderPercent" jdbcType="INTEGER" />
+    <result column="receive_order_count" property="receiveOrderCount" jdbcType="INTEGER" />
+    <result column="money_rmb" property="moneyRmb" jdbcType="INTEGER" />
+    <result column="money_meet" property="moneyMeet" jdbcType="INTEGER" />
+    <result column="money_score" property="moneyScore" jdbcType="INTEGER" />
+    <result column="lat" property="lat" jdbcType="DECIMAL" />
+    <result column="lng" property="lng" jdbcType="DECIMAL" />
+    <result column="mac_address" property="macAddress" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="usable" property="usable" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, telephone, wechat_union_id, wechat_app_id, wechat_offical_account_id, wechat_mini_programs_id, 
+    weibo_id, weibo_token, weibo_token_expiration_time, nickname, sex, birth_date, head_img_url, 
+    description, province, city, location, real_person_verified, real_person_verified_type, 
+    " identity_number", rp_verified_passport_url, verified_img, verified_img_url, verified_video, 
+    verified_video_url, vip_level, follower_count, follow_count, hot_count, visitor_count, 
+    receive_order_percent, receive_order_count, money_rmb, money_meet, money_score, lat, 
+    lng, mac_address, create_time, update_time, last_login_time, usable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="string" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where telephone = #{telephone}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.meet.model.User" >
+    insert into user (id, telephone, wechat_union_id, 
+      wechat_app_id, wechat_offical_account_id, wechat_mini_programs_id, 
+      weibo_id, weibo_token, weibo_token_expiration_time, 
+      nickname, sex, birth_date, 
+      head_img_url, description, province, 
+      city, location, real_person_verified, 
+      real_person_verified_type, " identity_number", 
+      rp_verified_passport_url, verified_img, verified_img_url, 
+      verified_video, verified_video_url, vip_level, 
+      follower_count, follow_count, hot_count, 
+      visitor_count, receive_order_percent, receive_order_count, 
+      money_rmb, money_meet, money_score, 
+      lat, lng, mac_address, 
+      create_time, update_time, last_login_time, 
+      usable)
+    values (#{id,jdbcType=BIGINT}, #{telephone,jdbcType=VARCHAR}, #{wechatUnionId,jdbcType=VARCHAR}, 
+      #{wechatAppId,jdbcType=VARCHAR}, #{wechatOfficalAccountId,jdbcType=VARCHAR}, #{wechatMiniProgramsId,jdbcType=VARCHAR}, 
+      #{weiboId,jdbcType=VARCHAR}, #{weiboToken,jdbcType=VARCHAR}, #{weiboTokenExpirationTime,jdbcType=TIMESTAMP}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{birthDate,jdbcType=DATE}, 
+      #{headImgUrl,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{realPersonVerified,jdbcType=INTEGER}, 
+      #{realPersonVerifiedType,jdbcType=INTEGER}, #{identityNumber,jdbcType=VARCHAR}, 
+      #{rpVerifiedPassportUrl,jdbcType=VARCHAR}, #{verifiedImg,jdbcType=INTEGER}, #{verifiedImgUrl,jdbcType=VARCHAR}, 
+      #{verifiedVideo,jdbcType=INTEGER}, #{verifiedVideoUrl,jdbcType=VARCHAR}, #{vipLevel,jdbcType=INTEGER}, 
+      #{followerCount,jdbcType=INTEGER}, #{followCount,jdbcType=INTEGER}, #{hotCount,jdbcType=INTEGER}, 
+      #{visitorCount,jdbcType=INTEGER}, #{receiveOrderPercent,jdbcType=INTEGER}, #{receiveOrderCount,jdbcType=INTEGER}, 
+      #{moneyRmb,jdbcType=INTEGER}, #{moneyMeet,jdbcType=INTEGER}, #{moneyScore,jdbcType=INTEGER}, 
+      #{lat,jdbcType=DECIMAL}, #{lng,jdbcType=DECIMAL}, #{macAddress,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{usable,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.meet.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="wechatUnionId != null" >
+        wechat_union_id,
+      </if>
+      <if test="wechatAppId != null" >
+        wechat_app_id,
+      </if>
+      <if test="wechatOfficalAccountId != null" >
+        wechat_offical_account_id,
+      </if>
+      <if test="wechatMiniProgramsId != null" >
+        wechat_mini_programs_id,
+      </if>
+      <if test="weiboId != null" >
+        weibo_id,
+      </if>
+      <if test="weiboToken != null" >
+        weibo_token,
+      </if>
+      <if test="weiboTokenExpirationTime != null" >
+        weibo_token_expiration_time,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthDate != null" >
+        birth_date,
+      </if>
+      <if test="headImgUrl != null" >
+        head_img_url,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="realPersonVerified != null" >
+        real_person_verified,
+      </if>
+      <if test="realPersonVerifiedType != null" >
+        real_person_verified_type,
+      </if>
+      <if test="identityNumber != null" >
+        " identity_number",
+      </if>
+      <if test="rpVerifiedPassportUrl != null" >
+        rp_verified_passport_url,
+      </if>
+      <if test="verifiedImg != null" >
+        verified_img,
+      </if>
+      <if test="verifiedImgUrl != null" >
+        verified_img_url,
+      </if>
+      <if test="verifiedVideo != null" >
+        verified_video,
+      </if>
+      <if test="verifiedVideoUrl != null" >
+        verified_video_url,
+      </if>
+      <if test="vipLevel != null" >
+        vip_level,
+      </if>
+      <if test="followerCount != null" >
+        follower_count,
+      </if>
+      <if test="followCount != null" >
+        follow_count,
+      </if>
+      <if test="hotCount != null" >
+        hot_count,
+      </if>
+      <if test="visitorCount != null" >
+        visitor_count,
+      </if>
+      <if test="receiveOrderPercent != null" >
+        receive_order_percent,
+      </if>
+      <if test="receiveOrderCount != null" >
+        receive_order_count,
+      </if>
+      <if test="moneyRmb != null" >
+        money_rmb,
+      </if>
+      <if test="moneyMeet != null" >
+        money_meet,
+      </if>
+      <if test="moneyScore != null" >
+        money_score,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+      <if test="macAddress != null" >
+        mac_address,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="usable != null" >
+        usable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatUnionId != null" >
+        #{wechatUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatAppId != null" >
+        #{wechatAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatOfficalAccountId != null" >
+        #{wechatOfficalAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatMiniProgramsId != null" >
+        #{wechatMiniProgramsId,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboId != null" >
+        #{weiboId,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboToken != null" >
+        #{weiboToken,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboTokenExpirationTime != null" >
+        #{weiboTokenExpirationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthDate != null" >
+        #{birthDate,jdbcType=DATE},
+      </if>
+      <if test="headImgUrl != null" >
+        #{headImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="realPersonVerified != null" >
+        #{realPersonVerified,jdbcType=INTEGER},
+      </if>
+      <if test="realPersonVerifiedType != null" >
+        #{realPersonVerifiedType,jdbcType=INTEGER},
+      </if>
+      <if test="identityNumber != null" >
+        #{identityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rpVerifiedPassportUrl != null" >
+        #{rpVerifiedPassportUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiedImg != null" >
+        #{verifiedImg,jdbcType=INTEGER},
+      </if>
+      <if test="verifiedImgUrl != null" >
+        #{verifiedImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiedVideo != null" >
+        #{verifiedVideo,jdbcType=INTEGER},
+      </if>
+      <if test="verifiedVideoUrl != null" >
+        #{verifiedVideoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="vipLevel != null" >
+        #{vipLevel,jdbcType=INTEGER},
+      </if>
+      <if test="followerCount != null" >
+        #{followerCount,jdbcType=INTEGER},
+      </if>
+      <if test="followCount != null" >
+        #{followCount,jdbcType=INTEGER},
+      </if>
+      <if test="hotCount != null" >
+        #{hotCount,jdbcType=INTEGER},
+      </if>
+      <if test="visitorCount != null" >
+        #{visitorCount,jdbcType=INTEGER},
+      </if>
+      <if test="receiveOrderPercent != null" >
+        #{receiveOrderPercent,jdbcType=INTEGER},
+      </if>
+      <if test="receiveOrderCount != null" >
+        #{receiveOrderCount,jdbcType=INTEGER},
+      </if>
+      <if test="moneyRmb != null" >
+        #{moneyRmb,jdbcType=INTEGER},
+      </if>
+      <if test="moneyMeet != null" >
+        #{moneyMeet,jdbcType=INTEGER},
+      </if>
+      <if test="moneyScore != null" >
+        #{moneyScore,jdbcType=INTEGER},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=DECIMAL},
+      </if>
+      <if test="macAddress != null" >
+        #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usable != null" >
+        #{usable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.meet.model.User" >
+    update user
+    <set >
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatUnionId != null" >
+        wechat_union_id = #{wechatUnionId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatAppId != null" >
+        wechat_app_id = #{wechatAppId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatOfficalAccountId != null" >
+        wechat_offical_account_id = #{wechatOfficalAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatMiniProgramsId != null" >
+        wechat_mini_programs_id = #{wechatMiniProgramsId,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboId != null" >
+        weibo_id = #{weiboId,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboToken != null" >
+        weibo_token = #{weiboToken,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboTokenExpirationTime != null" >
+        weibo_token_expiration_time = #{weiboTokenExpirationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthDate != null" >
+        birth_date = #{birthDate,jdbcType=DATE},
+      </if>
+      <if test="headImgUrl != null" >
+        head_img_url = #{headImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="realPersonVerified != null" >
+        real_person_verified = #{realPersonVerified,jdbcType=INTEGER},
+      </if>
+      <if test="realPersonVerifiedType != null" >
+        real_person_verified_type = #{realPersonVerifiedType,jdbcType=INTEGER},
+      </if>
+      <if test="identityNumber != null" >
+        " identity_number" = #{identityNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="rpVerifiedPassportUrl != null" >
+        rp_verified_passport_url = #{rpVerifiedPassportUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiedImg != null" >
+        verified_img = #{verifiedImg,jdbcType=INTEGER},
+      </if>
+      <if test="verifiedImgUrl != null" >
+        verified_img_url = #{verifiedImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiedVideo != null" >
+        verified_video = #{verifiedVideo,jdbcType=INTEGER},
+      </if>
+      <if test="verifiedVideoUrl != null" >
+        verified_video_url = #{verifiedVideoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="vipLevel != null" >
+        vip_level = #{vipLevel,jdbcType=INTEGER},
+      </if>
+      <if test="followerCount != null" >
+        follower_count = #{followerCount,jdbcType=INTEGER},
+      </if>
+      <if test="followCount != null" >
+        follow_count = #{followCount,jdbcType=INTEGER},
+      </if>
+      <if test="hotCount != null" >
+        hot_count = #{hotCount,jdbcType=INTEGER},
+      </if>
+      <if test="visitorCount != null" >
+        visitor_count = #{visitorCount,jdbcType=INTEGER},
+      </if>
+      <if test="receiveOrderPercent != null" >
+        receive_order_percent = #{receiveOrderPercent,jdbcType=INTEGER},
+      </if>
+      <if test="receiveOrderCount != null" >
+        receive_order_count = #{receiveOrderCount,jdbcType=INTEGER},
+      </if>
+      <if test="moneyRmb != null" >
+        money_rmb = #{moneyRmb,jdbcType=INTEGER},
+      </if>
+      <if test="moneyMeet != null" >
+        money_meet = #{moneyMeet,jdbcType=INTEGER},
+      </if>
+      <if test="moneyScore != null" >
+        money_score = #{moneyScore,jdbcType=INTEGER},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="lng != null" >
+        lng = #{lng,jdbcType=DECIMAL},
+      </if>
+      <if test="macAddress != null" >
+        mac_address = #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usable != null" >
+        usable = #{usable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.meet.model.User" >
+    update user
+    set telephone = #{telephone,jdbcType=VARCHAR},
+      wechat_union_id = #{wechatUnionId,jdbcType=VARCHAR},
+      wechat_app_id = #{wechatAppId,jdbcType=VARCHAR},
+      wechat_offical_account_id = #{wechatOfficalAccountId,jdbcType=VARCHAR},
+      wechat_mini_programs_id = #{wechatMiniProgramsId,jdbcType=VARCHAR},
+      weibo_id = #{weiboId,jdbcType=VARCHAR},
+      weibo_token = #{weiboToken,jdbcType=VARCHAR},
+      weibo_token_expiration_time = #{weiboTokenExpirationTime,jdbcType=TIMESTAMP},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birth_date = #{birthDate,jdbcType=DATE},
+      head_img_url = #{headImgUrl,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      real_person_verified = #{realPersonVerified,jdbcType=INTEGER},
+      real_person_verified_type = #{realPersonVerifiedType,jdbcType=INTEGER},
+      " identity_number" = #{identityNumber,jdbcType=VARCHAR},
+      rp_verified_passport_url = #{rpVerifiedPassportUrl,jdbcType=VARCHAR},
+      verified_img = #{verifiedImg,jdbcType=INTEGER},
+      verified_img_url = #{verifiedImgUrl,jdbcType=VARCHAR},
+      verified_video = #{verifiedVideo,jdbcType=INTEGER},
+      verified_video_url = #{verifiedVideoUrl,jdbcType=VARCHAR},
+      vip_level = #{vipLevel,jdbcType=INTEGER},
+      follower_count = #{followerCount,jdbcType=INTEGER},
+      follow_count = #{followCount,jdbcType=INTEGER},
+      hot_count = #{hotCount,jdbcType=INTEGER},
+      visitor_count = #{visitorCount,jdbcType=INTEGER},
+      receive_order_percent = #{receiveOrderPercent,jdbcType=INTEGER},
+      receive_order_count = #{receiveOrderCount,jdbcType=INTEGER},
+      money_rmb = #{moneyRmb,jdbcType=INTEGER},
+      money_meet = #{moneyMeet,jdbcType=INTEGER},
+      money_score = #{moneyScore,jdbcType=INTEGER},
+      lat = #{lat,jdbcType=DECIMAL},
+      lng = #{lng,jdbcType=DECIMAL},
+      mac_address = #{macAddress,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      usable = #{usable,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

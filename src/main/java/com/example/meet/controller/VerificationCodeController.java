@@ -1,6 +1,8 @@
 package com.example.meet.controller;
 
+import com.example.meet.dao.UserMapper;
 import com.example.meet.dao.VerifyCodeMapper;
+import com.example.meet.model.User;
 import com.example.meet.model.VerifyCode;
 import com.example.meet.utils.JsonResponse;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,9 @@ import java.util.Random;
 public class VerificationCodeController {
     @Resource
     private VerifyCodeMapper verifyCodeMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     /**
      * 获取验证码
@@ -57,10 +62,11 @@ public class VerificationCodeController {
      */
     @RequestMapping(value = "/login/{phone}")
     @ResponseBody
-    public Object getVerificationCode(@PathVariable String phone, String verificationCode) {
+    public Object signInOrSignUp(@PathVariable String telephone, String verificationCode) {
         JsonResponse jsonResponse = new JsonResponse();
-        VerifyCode verifyCode = verifyCodeMapper.selectVerifyCodeByPhone(phone);
 
+        /* 查询验证码，不正确则返回错误信息 */
+        VerifyCode verifyCode = verifyCodeMapper.selectVerifyCodeByPhone(telephone);
         if (null == verifyCode) {
             jsonResponse.setFailed("请点击发送验证码");
         } else if (!verificationCode.equals(verifyCode.getVerifyCode())) {
@@ -71,6 +77,15 @@ public class VerificationCodeController {
             jsonResponse.setFailed("验证码已过期，请重新发送");
         } else {
             jsonResponse.setSuccessed(getToken());
+        }
+
+        /* 查询用户是否存在，如果存在则执行登录流程，否则执行注册流程 */
+        User user = userMapper.selectByPhone(telephone);
+        if (null != user) {
+            user = new User();
+            userMapper.insert(user);
+        } else {
+
         }
 
         return jsonResponse;
