@@ -2,9 +2,9 @@ package com.example.meet.controller;
 
 import com.example.meet.dao.UserMapper;
 import com.example.meet.dao.VerifyCodeMapper;
-import com.example.meet.model.User;
+import com.example.meet.model.MeetUser;
 import com.example.meet.model.VerifyCode;
-import com.example.meet.utils.JsonResponse;
+import com.example.meet.common.JsonResponse;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,10 +80,10 @@ public class VerificationCodeController {
         }
 
         /* 查询用户是否存在，如果存在则执行登录流程，否则执行注册流程 */
-        User user = userMapper.selectByPhone(telephone);
-        if (null != user) {
-            user = new User();
-            userMapper.insert(user);
+        MeetUser meetUser = userMapper.selectByPhone(telephone);
+        if (null != meetUser) {
+            meetUser = new MeetUser();
+            userMapper.insert(meetUser);
         } else {
 
         }

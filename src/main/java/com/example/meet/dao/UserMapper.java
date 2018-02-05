@@ -1,6 +1,6 @@
 package com.example.meet.dao;
 
-import com.example.meet.model.User;
+import com.example.meet.model.MeetUser;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -10,19 +10,19 @@ import java.util.List;
 public interface UserMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(User record);
+    int insert(MeetUser record);
 
-    int insertSelective(User record);
+    int insertSelective(MeetUser record);
 
-    User selectByPrimaryKey(Long id);
+    MeetUser selectByPrimaryKey(Long id);
 
-    User selectByPhone(String telephone);
+    MeetUser selectByPhone(String telephone);
 
-    int updateByPrimaryKeySelective(User record);
+    int updateByPrimaryKeySelective(MeetUser record);
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(MeetUser record);
 
     @Select("SELECT * FROM user")
-    List<User> selectAll();
+    List<MeetUser> selectAll();
 
 }

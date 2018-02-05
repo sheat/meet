@@ -1,4 +1,4 @@
-package com.example.meet.utils;
+package com.example.meet.common;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

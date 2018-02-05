@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.meet.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.example.meet.model.User" >
+  <resultMap id="BaseResultMap" type="com.example.meet.model.MeetUser" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="wechat_union_id" property="wechatUnionId" jdbcType="VARCHAR" />
@@ -57,23 +57,23 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from user
+    from meet_user
     where id = #{id,jdbcType=BIGINT}
   </select>
 
   <select id="selectByPhone" resultMap="BaseResultMap" parameterType="string" >
     select
     <include refid="Base_Column_List" />
-    from user
+    from meet_user
     where telephone = #{telephone}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user
+    delete from meet_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.meet.model.User" >
-    insert into user (id, telephone, wechat_union_id, 
+  <insert id="insert" parameterType="com.example.meet.model.MeetUser" >
+    insert into meet_user (id, telephone, wechat_union_id,
       wechat_app_id, wechat_offical_account_id, wechat_mini_programs_id, 
       weibo_id, weibo_token, weibo_token_expiration_time, 
       nickname, sex, birth_date, 
@@ -104,8 +104,8 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
       #{usable,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.meet.model.User" >
-    insert into user
+  <insert id="insertSelective" parameterType="com.example.meet.model.MeetUser" >
+    insert into meet_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -363,8 +363,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.meet.model.User" >
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.meet.model.MeetUser" >
+    update meet_user
     <set >
       <if test="telephone != null" >
         telephone = #{telephone,jdbcType=VARCHAR},
@@ -492,8 +492,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.meet.model.User" >
-    update user
+  <update id="updateByPrimaryKey" parameterType="com.example.meet.model.MeetUser" >
+    update meet_user
     set telephone = #{telephone,jdbcType=VARCHAR},
       wechat_union_id = #{wechatUnionId,jdbcType=VARCHAR},
       wechat_app_id = #{wechatAppId,jdbcType=VARCHAR},
