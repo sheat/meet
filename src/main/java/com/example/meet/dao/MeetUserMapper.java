@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserMapper {
+public interface MeetUserMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(MeetUser record);

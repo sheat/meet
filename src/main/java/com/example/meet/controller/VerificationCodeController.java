@@ -1,7 +1,8 @@
 package com.example.meet.controller;
 
-import com.example.meet.dao.UserMapper;
+import com.example.meet.dao.MeetUserMapper;
 import com.example.meet.dao.VerifyCodeMapper;
+import com.example.meet.filter.NeedNotLogin;
 import com.example.meet.model.MeetUser;
 import com.example.meet.model.VerifyCode;
 import com.example.meet.common.JsonResponse;
@@ -26,14 +27,16 @@ public class VerificationCodeController {
     private VerifyCodeMapper verifyCodeMapper;
 
     @Resource
-    private UserMapper userMapper;
+    private MeetUserMapper meetUserMapper;
 
     /**
      * 获取验证码
      */
     @RequestMapping(value = "/phone/{phone}")
     @ResponseBody
+    @NeedNotLogin
     public String getVerificationCode(@PathVariable String phone) {
+        JsonResponse jsonResponse = new JsonResponse();
         /* 生成6位随机数字 */
         Random random = new Random();
         String result = "";
@@ -53,8 +56,8 @@ public class VerificationCodeController {
         } else {
             verifyCodeMapper.insert(verifyCode);
         }
-
-        return result;
+        jsonResponse.setSuccessed(result);
+        return jsonResponse.toString();
     }
 
     /**
@@ -80,10 +83,10 @@ public class VerificationCodeController {
         }
 
         /* 查询用户是否存在，如果存在则执行登录流程，否则执行注册流程 */
-        MeetUser meetUser = userMapper.selectByPhone(telephone);
+        MeetUser meetUser = meetUserMapper.selectByPhone(telephone);
         if (null != meetUser) {
             meetUser = new MeetUser();
-            userMapper.insert(meetUser);
+            meetUserMapper.insert(meetUser);
         } else {
 
         }
