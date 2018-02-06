@@ -17,7 +17,7 @@ public class VerifyCode {
 
     private Integer used;
 
-    private Date codeExpries;
+    private Date codeExpires;
 
     private Date createTime;
 

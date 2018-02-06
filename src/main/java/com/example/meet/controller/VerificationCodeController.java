@@ -63,7 +63,8 @@ public class VerificationCodeController {
     /**
      * 注册或登录
      */
-    @RequestMapping(value = "/login/{phone}")
+    @RequestMapping(value = "/login/{telephone}")
+    @NeedNotLogin
     @ResponseBody
     public Object signInOrSignUp(@PathVariable String telephone, String verificationCode) {
         JsonResponse jsonResponse = new JsonResponse();
@@ -76,21 +77,24 @@ public class VerificationCodeController {
             jsonResponse.setFailed("验证码错误");
         } else if (VerifyCode.CODE_USED.equals(verifyCode.getUsed())) {
             jsonResponse.setFailed("验证码已使用，请重新发送");
-        } else if (new Date().after(verifyCode.getCodeExpries())) {
+        } else if (new Date().after(verifyCode.getCodeExpires())) {
             jsonResponse.setFailed("验证码已过期，请重新发送");
-        } else {
-            jsonResponse.setSuccessed(getToken());
+        }
+        if (JsonResponse.RESULT_CODE_FAILED == jsonResponse.getResultCode()) {
+            return jsonResponse;
         }
 
         /* 查询用户是否存在，如果存在则执行登录流程，否则执行注册流程 */
         MeetUser meetUser = meetUserMapper.selectByPhone(telephone);
         if (null != meetUser) {
-            meetUser = new MeetUser();
-            meetUserMapper.insert(meetUser);
+            /* 用户已存在 */
+
         } else {
+            /* TODO 用户不存在，注册 */
 
         }
 
+        jsonResponse.setSuccessed("登录成功");
         return jsonResponse;
     }
 
