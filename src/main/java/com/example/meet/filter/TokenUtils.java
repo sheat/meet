@@ -33,14 +33,14 @@ public class TokenUtils {
     /**
      * 生成token
      *
-     * @param id 一般传入userName
+     * @param telephone 一般传入userName
      * @return
      */
-    public static String createJwtToken(String id) {
+    public static String createJwtToken(String telephone) {
         String issuer = "www.jinwangansha.com";
         String subject = "sheat120@sina.com";
         long ttlMillis = System.currentTimeMillis();
-        return createJwtToken(id, issuer, subject, ttlMillis);
+        return createJwtToken(telephone, issuer, subject, ttlMillis);
     }
 
     /**
@@ -72,8 +72,7 @@ public class TokenUtils {
                 .setIssuedAt(now)
                 .setSubject(subject)
                 .setIssuer(issuer)
-                .signWith(signatureAlgorithm, signingKey)
-                .setExpiration(calExp.getTime());
+                .signWith(signatureAlgorithm, signingKey);
 
         // if it has been specified, let's add the expiration
         if (ttlMillis >= 0) {
@@ -97,6 +96,6 @@ public class TokenUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(TokenUtils.createJwtToken("admin"));
+        System.out.println(TokenUtils.createJwtToken("18801064494"));
     }
 }

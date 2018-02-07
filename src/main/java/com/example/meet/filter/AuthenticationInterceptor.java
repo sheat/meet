@@ -1,5 +1,6 @@
 package com.example.meet.filter;
 
+import com.example.meet.common.JsonResponse;
 import com.example.meet.dao.MeetUserMapper;
 import com.example.meet.model.MeetUser;
 import io.jsonwebtoken.Claims;
@@ -33,6 +34,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        JsonResponse jsonResponse = new JsonResponse();
         // 如果不是映射到方法直接通过
         if (!(handler instanceof HandlerMethod)) {
             return true;
@@ -44,18 +46,36 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         // 有 @NeedNotLogin 注解，不需要登录验证
         if (null == methodAnnotation) {
             // 判断是否存在令牌信息，如果存在，则允许登录
-            String accessToken = request.getParameter(ACCESS_TOKEN);
+            String accessToken = request.getHeader(ACCESS_TOKEN);
             if (null == accessToken) {
-                throw new RuntimeException("无token，请重新登录");
+                jsonResponse.setFailed("没有发送token");
+                response.setContentType("text/html;charset=utf-8");
+                response.getWriter().write(jsonResponse.toString());
+                return false;
             }
-            Claims claims = TokenUtils.parseJWT(accessToken);
+
+            Claims claims;
+            try {
+                claims = TokenUtils.parseJWT(accessToken);
+            } catch (Exception e) {
+                e.printStackTrace();
+                jsonResponse.setFailed("token解析失败");
+                response.setContentType("text/html;charset=utf-8");
+                response.getWriter().write(jsonResponse.toString());
+                return false;
+            }
+
             String telephone = claims.getId();
-            MeetUser user = meetUserMapper.selectByPhone(telephone);
-            if (user == null) {
-                throw new RuntimeException("用户不存在，请注册");
+            String storedToken = meetUserMapper.selectTokenByPhone(telephone);
+            if (storedToken == null || !accessToken.equals(storedToken)) {
+                jsonResponse.setFailed("token验证失败");
+                response.setContentType("text/html;charset=utf-8");
+                response.getWriter().write(jsonResponse.toString());
+                return false;
             }
+
             // 当前登录用户
-            request.setAttribute(CurrentUserConstants.CURRENT_USER, user);
+            request.setAttribute(CurrentUserConstants.CURRENT_USER, telephone);
             return true;
         }
         return true;

@@ -3,6 +3,7 @@ package com.example.meet.controller;
 import com.example.meet.dao.MeetUserMapper;
 import com.example.meet.dao.VerifyCodeMapper;
 import com.example.meet.filter.NeedNotLogin;
+import com.example.meet.filter.TokenUtils;
 import com.example.meet.model.MeetUser;
 import com.example.meet.model.VerifyCode;
 import com.example.meet.common.JsonResponse;
@@ -61,12 +62,12 @@ public class VerificationCodeController {
     }
 
     /**
-     * 注册或登录
+     * 注册
      */
-    @RequestMapping(value = "/login/{telephone}")
+    @RequestMapping(value = "/signUp/{telephone}")
     @NeedNotLogin
     @ResponseBody
-    public Object signInOrSignUp(@PathVariable String telephone, String verificationCode) {
+    public Object signUp(@PathVariable String telephone, String verificationCode) {
         JsonResponse jsonResponse = new JsonResponse();
 
         /* 查询验证码，不正确则返回错误信息 */
@@ -98,8 +99,30 @@ public class VerificationCodeController {
         return jsonResponse;
     }
 
-    private String getToken() {
-        return "";
+    /**
+     * 登录
+     */
+    @RequestMapping(value = "/signIn/{telephone}")
+    @NeedNotLogin
+    @ResponseBody
+    public Object signIn(@PathVariable String telephone, String password) {
+        JsonResponse jsonResponse = new JsonResponse();
+
+        /* 验证用户是否存在 */
+        MeetUser meetUser = meetUserMapper.selectByPhone(telephone);
+        if (null == meetUser) {
+            jsonResponse.setFailed("手机号未注册");
+            return jsonResponse;
+        }
+
+        /* 验证密码 */
+        if (!password.equals(meetUser.getMeetPassword())) {
+            jsonResponse.setFailed("密码不正确");
+            return jsonResponse;
+        }
+
+        jsonResponse.setSuccessed("登陆成功");
+        return jsonResponse;
     }
 
 }

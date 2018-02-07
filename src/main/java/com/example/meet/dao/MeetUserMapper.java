@@ -18,6 +18,8 @@ public interface MeetUserMapper {
 
     MeetUser selectByPhone(String telephone);
 
+    String selectTokenByPhone(String telephone);
+
     int updateByPrimaryKeySelective(MeetUser record);
 
     int updateByPrimaryKey(MeetUser record);

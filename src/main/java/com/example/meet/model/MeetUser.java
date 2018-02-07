@@ -90,4 +90,7 @@ public class MeetUser {
 
     private Integer usable;
 
+    private String meetPassword;
+
+    private String meetToken;
 }
