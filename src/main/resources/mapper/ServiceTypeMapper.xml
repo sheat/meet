@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.meet.dao.ServiceTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.example.meet.model.ServiceType" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="BIGINT" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="image_url_default" property="imageUrlDefault" jdbcType="VARCHAR" />
+    <result column="iamge_url_selected" property="iamgeUrlSelected" jdbcType="VARCHAR" />
+    <result column="in_home_page" property="inHomePage" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="usable" property="usable" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, service_name, category_id, category_name, image_url_default, iamge_url_selected, 
+    in_home_page, order_num, usable, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from service_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from service_type
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from service_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.meet.model.ServiceType" >
+    insert into service_type (id, service_name, category_id, 
+      category_name, image_url_default, iamge_url_selected, 
+      in_home_page, order_num, usable, 
+      createtime, updatetime)
+    values (#{id,jdbcType=BIGINT}, #{serviceName,jdbcType=VARCHAR}, #{categoryId,jdbcType=BIGINT}, 
+      #{categoryName,jdbcType=VARCHAR}, #{imageUrlDefault,jdbcType=VARCHAR}, #{iamgeUrlSelected,jdbcType=VARCHAR}, 
+      #{inHomePage,jdbcType=INTEGER}, #{orderNum,jdbcType=INTEGER}, #{usable,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.meet.model.ServiceType" >
+    insert into service_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serviceName != null" >
+        service_name,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="categoryName != null" >
+        category_name,
+      </if>
+      <if test="imageUrlDefault != null" >
+        image_url_default,
+      </if>
+      <if test="iamgeUrlSelected != null" >
+        iamge_url_selected,
+      </if>
+      <if test="inHomePage != null" >
+        in_home_page,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="usable != null" >
+        usable,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlDefault != null" >
+        #{imageUrlDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="iamgeUrlSelected != null" >
+        #{iamgeUrlSelected,jdbcType=VARCHAR},
+      </if>
+      <if test="inHomePage != null" >
+        #{inHomePage,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="usable != null" >
+        #{usable,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.meet.model.ServiceType" >
+    update service_type
+    <set >
+      <if test="serviceName != null" >
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="categoryName != null" >
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrlDefault != null" >
+        image_url_default = #{imageUrlDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="iamgeUrlSelected != null" >
+        iamge_url_selected = #{iamgeUrlSelected,jdbcType=VARCHAR},
+      </if>
+      <if test="inHomePage != null" >
+        in_home_page = #{inHomePage,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="usable != null" >
+        usable = #{usable,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.meet.model.ServiceType" >
+    update service_type
+    set service_name = #{serviceName,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=BIGINT},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      image_url_default = #{imageUrlDefault,jdbcType=VARCHAR},
+      iamge_url_selected = #{iamgeUrlSelected,jdbcType=VARCHAR},
+      in_home_page = #{inHomePage,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      usable = #{usable,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

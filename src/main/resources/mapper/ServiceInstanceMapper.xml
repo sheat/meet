@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.meet.dao.ServiceInstanceMapper" >
+  <resultMap id="BaseResultMap" type="com.example.meet.model.ServiceInstance" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="meet_user_id" property="meetUserId" jdbcType="BIGINT" />
+    <result column="service_type_id" property="serviceTypeId" jdbcType="BIGINT" />
+    <result column="coverimg_url" property="coverimgUrl" jdbcType="VARCHAR" />
+    <result column="covervideo_url" property="covervideoUrl" jdbcType="VARCHAR" />
+    <result column="covervideo_duration" property="covervideoDuration" jdbcType="INTEGER" />
+    <result column="audio_url" property="audioUrl" jdbcType="VARCHAR" />
+    <result column="audio_duration" property="audioDuration" jdbcType="INTEGER" />
+    <result column="meet_unit" property="meetUnit" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="meet_mode" property="meetMode" jdbcType="INTEGER" />
+    <result column="meet_way" property="meetWay" jdbcType="INTEGER" />
+    <result column="service_description" property="serviceDescription" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="deal_count" property="dealCount" jdbcType="INTEGER" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="upvote_count" property="upvoteCount" jdbcType="INTEGER" />
+    <result column="verify_status" property="verifyStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="usable" property="usable" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, meet_user_id, service_type_id, coverimg_url, covervideo_url, covervideo_duration, 
+    audio_url, audio_duration, meet_unit, price, meet_mode, meet_way, service_description, 
+    score, deal_count, comment_count, upvote_count, verify_status, create_time, update_time, 
+    usable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from service_instance
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from service_instance
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.meet.model.ServiceInstance" >
+    insert into service_instance (id, meet_user_id, service_type_id, 
+      coverimg_url, covervideo_url, covervideo_duration, 
+      audio_url, audio_duration, meet_unit, 
+      price, meet_mode, meet_way, 
+      service_description, score, deal_count, 
+      comment_count, upvote_count, verify_status, 
+      create_time, update_time, usable
+      )
+    values (#{id,jdbcType=BIGINT}, #{meetUserId,jdbcType=BIGINT}, #{serviceTypeId,jdbcType=BIGINT}, 
+      #{coverimgUrl,jdbcType=VARCHAR}, #{covervideoUrl,jdbcType=VARCHAR}, #{covervideoDuration,jdbcType=INTEGER}, 
+      #{audioUrl,jdbcType=VARCHAR}, #{audioDuration,jdbcType=INTEGER}, #{meetUnit,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{meetMode,jdbcType=INTEGER}, #{meetWay,jdbcType=INTEGER}, 
+      #{serviceDescription,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{dealCount,jdbcType=INTEGER}, 
+      #{commentCount,jdbcType=INTEGER}, #{upvoteCount,jdbcType=INTEGER}, #{verifyStatus,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{usable,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.meet.model.ServiceInstance" >
+    insert into service_instance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="meetUserId != null" >
+        meet_user_id,
+      </if>
+      <if test="serviceTypeId != null" >
+        service_type_id,
+      </if>
+      <if test="coverimgUrl != null" >
+        coverimg_url,
+      </if>
+      <if test="covervideoUrl != null" >
+        covervideo_url,
+      </if>
+      <if test="covervideoDuration != null" >
+        covervideo_duration,
+      </if>
+      <if test="audioUrl != null" >
+        audio_url,
+      </if>
+      <if test="audioDuration != null" >
+        audio_duration,
+      </if>
+      <if test="meetUnit != null" >
+        meet_unit,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="meetMode != null" >
+        meet_mode,
+      </if>
+      <if test="meetWay != null" >
+        meet_way,
+      </if>
+      <if test="serviceDescription != null" >
+        service_description,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="dealCount != null" >
+        deal_count,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="upvoteCount != null" >
+        upvote_count,
+      </if>
+      <if test="verifyStatus != null" >
+        verify_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="usable != null" >
+        usable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="meetUserId != null" >
+        #{meetUserId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceTypeId != null" >
+        #{serviceTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="coverimgUrl != null" >
+        #{coverimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="covervideoUrl != null" >
+        #{covervideoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="covervideoDuration != null" >
+        #{covervideoDuration,jdbcType=INTEGER},
+      </if>
+      <if test="audioUrl != null" >
+        #{audioUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="audioDuration != null" >
+        #{audioDuration,jdbcType=INTEGER},
+      </if>
+      <if test="meetUnit != null" >
+        #{meetUnit,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="meetMode != null" >
+        #{meetMode,jdbcType=INTEGER},
+      </if>
+      <if test="meetWay != null" >
+        #{meetWay,jdbcType=INTEGER},
+      </if>
+      <if test="serviceDescription != null" >
+        #{serviceDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="dealCount != null" >
+        #{dealCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="upvoteCount != null" >
+        #{upvoteCount,jdbcType=INTEGER},
+      </if>
+      <if test="verifyStatus != null" >
+        #{verifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usable != null" >
+        #{usable,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.meet.model.ServiceInstance" >
+    update service_instance
+    <set >
+      <if test="meetUserId != null" >
+        meet_user_id = #{meetUserId,jdbcType=BIGINT},
+      </if>
+      <if test="serviceTypeId != null" >
+        service_type_id = #{serviceTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="coverimgUrl != null" >
+        coverimg_url = #{coverimgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="covervideoUrl != null" >
+        covervideo_url = #{covervideoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="covervideoDuration != null" >
+        covervideo_duration = #{covervideoDuration,jdbcType=INTEGER},
+      </if>
+      <if test="audioUrl != null" >
+        audio_url = #{audioUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="audioDuration != null" >
+        audio_duration = #{audioDuration,jdbcType=INTEGER},
+      </if>
+      <if test="meetUnit != null" >
+        meet_unit = #{meetUnit,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="meetMode != null" >
+        meet_mode = #{meetMode,jdbcType=INTEGER},
+      </if>
+      <if test="meetWay != null" >
+        meet_way = #{meetWay,jdbcType=INTEGER},
+      </if>
+      <if test="serviceDescription != null" >
+        service_description = #{serviceDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="dealCount != null" >
+        deal_count = #{dealCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null" >
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="upvoteCount != null" >
+        upvote_count = #{upvoteCount,jdbcType=INTEGER},
+      </if>
+      <if test="verifyStatus != null" >
+        verify_status = #{verifyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usable != null" >
+        usable = #{usable,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.meet.model.ServiceInstance" >
+    update service_instance
+    set meet_user_id = #{meetUserId,jdbcType=BIGINT},
+      service_type_id = #{serviceTypeId,jdbcType=BIGINT},
+      coverimg_url = #{coverimgUrl,jdbcType=VARCHAR},
+      covervideo_url = #{covervideoUrl,jdbcType=VARCHAR},
+      covervideo_duration = #{covervideoDuration,jdbcType=INTEGER},
+      audio_url = #{audioUrl,jdbcType=VARCHAR},
+      audio_duration = #{audioDuration,jdbcType=INTEGER},
+      meet_unit = #{meetUnit,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      meet_mode = #{meetMode,jdbcType=INTEGER},
+      meet_way = #{meetWay,jdbcType=INTEGER},
+      service_description = #{serviceDescription,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      deal_count = #{dealCount,jdbcType=INTEGER},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      upvote_count = #{upvoteCount,jdbcType=INTEGER},
+      verify_status = #{verifyStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      usable = #{usable,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

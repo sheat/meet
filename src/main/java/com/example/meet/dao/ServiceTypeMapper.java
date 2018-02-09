@@ -20,6 +20,6 @@ public interface ServiceTypeMapper {
 
     int updateByPrimaryKey(ServiceType record);
 
-    @Select("SELECT id,service_name serviceName,category_id categoryId,category_name categoryName,image_url_default imageUrlDefault,iamge_url_selected iamgeUrlSelected,in_home_page inHomePage,order_num orderNum,usable,createtime,updatetime FROM service_type")
+//    @Select("SELECT id,service_name serviceName,category_id categoryId,category_name categoryName,image_url_default imageUrlDefault,iamge_url_selected iamgeUrlSelected,in_home_page inHomePage,order_num orderNum,usable,createtime,updatetime FROM service_type")
     List<ServiceType> selectAll();
 }
